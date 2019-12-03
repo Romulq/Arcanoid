@@ -20,7 +20,6 @@ class Settings:
         self.speedup_scale = 1.1
         self.score_scale = 1.3
 
-        self.score_head = 1.0
 
 
 
