@@ -10,21 +10,20 @@ class Scoreboard:
         self.settings = settings
         self.stats = stats
 
-        self.text_color = (163, 39, 39)
-        self.font = pygame.font.SysFont('Rockwell', 36)
+        self.text_color = (122, 1, 116, 0)
+        self.font = pygame.font.SysFont('Alien Encounters', 36)
 
         self.prep_score()
         self.prep_high_score()
-        self.prep_level()
         self.prep_heart()
 
     def prep_score(self):
-        score_str = str(self.stats.score)
-        rouded_score = round(self.stats.score, -1)
-        score_str = "{:,}".format(rouded_score)
+        rouded_score = int(round(self.stats.score))
+        score_str = format(rouded_score)
         self.score_image = self.font.render(score_str, True, self.text_color, None)
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 10
+        self.score_rect.top = self.screen_rect.top + 3
 
     def prep_heart(self):
         self.hearts = Group()
@@ -34,19 +33,13 @@ class Scoreboard:
             heart.rect.y = self.screen_rect.bottom - 36
             self.hearts.add(heart)
 
-    def prep_level(self):
-        self.level_image = self.font.render(str(self.stats.level), True, self.text_color, None)
-        self.level_rect = self.level_image.get_rect()
-        self.level_rect.right = self.score_rect.right
-        self.level_rect.top = self.score_rect.bottom + 10
-
     def prep_high_score(self):
-        high_score = int(round(self.stats.high_score, -1))
-        high_score_str = "{:,}".format(high_score)
+        high_score = int(round(self.stats.high_score))
+        high_score_str = format(high_score)
         self.high_score_image = self.font.render(high_score_str, True, self.text_color, None)
         self.high_score_rect = self.high_score_image.get_rect()
         self.high_score_rect.centerx = self.screen_rect.centerx
-        self.high_score_rect.top = self.score_rect.top
+        self.high_score_rect.top = self.screen_rect.top + 3
 
     def show_score(self):
         self.screen.blit(self.score_image, self.score_rect)

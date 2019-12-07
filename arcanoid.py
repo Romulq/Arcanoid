@@ -11,6 +11,7 @@ import game_function as gf
 
 def rungame():
     pygame.init()
+    clock = pygame.time.Clock()
 
     gg = Settings()
     screen = pygame.display.set_mode(gg.size)
@@ -18,7 +19,9 @@ def rungame():
     sb = Scoreboard(gg, screen, stats)
 
     pygame.display.set_caption("Arcanoid")
-    play_button = Button(gg, screen, "Play")
+
+    play_button = Button(screen, u'Играть', 320, 445)
+    rules_button = Button(screen, u'Правила', 320, 520)
 
     paddle = Paddle(gg, screen)
     bricks = Group()
@@ -27,7 +30,7 @@ def rungame():
     gf.create_bricks(gg, screen, paddle, bricks)
 
     while True:
-        gf.check_events(gg, screen, stats, play_button, paddle, sb, bricks, ball)
+        gf.check_events(gg, screen, stats, play_button, rules_button, paddle, sb, bricks, ball)
 
         if stats.game_active:
             paddle.update()
@@ -36,7 +39,9 @@ def rungame():
 
             gf.update_bricks(bricks)
 
-        gf.update_screen(gg, screen, stats, sb, paddle, bricks, ball, play_button)
+        gf.update_screen(gg, screen, stats, sb, paddle, bricks, ball, play_button, rules_button)
+
+        clock.tick(60)
 
 
 rungame()
